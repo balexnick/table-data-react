@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Switch, Route, Redirect } from "react-router";
+import { connect } from "react-redux";
+import * as CONSTANT from "./constant";
 
 import Login from "./containers/Login";
 import HomePage from "./containers/HomePage";
@@ -9,13 +11,14 @@ import Logout from "./containers/Logout";
 
 import Template from "./components/Template";
 
-// import { getToken } from "./utils/getToken";
-
 class App extends Component {
+  componentDidMount() {
+    const token = localStorage.getItem("token");
+    this.props.saveToken(token)
+  }
   isToken = component => {
     const token = localStorage.getItem("token");
     if (!token) return <Redirect to="/login" />;
-
     return <Template>{component}</Template>;
   };
 
@@ -37,5 +40,9 @@ class App extends Component {
     );
   }
 }
-
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    saveToken: token => dispatch({ type: CONSTANT.TOKEN, payload: token }),
+  }
+}
+export default connect(null, mapDispatchToProps)(App);

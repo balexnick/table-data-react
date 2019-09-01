@@ -4,3 +4,4 @@ import { rootReduser } from "../redusers/redusers";
 import thunk from "redux-thunk";
 
 export const store = createStore(rootReduser, applyMiddleware(thunk));
+// ,logger

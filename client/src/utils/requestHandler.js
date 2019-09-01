@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 export const requestHandler = options => {
-  const token = localStorage.getItem("token");
+  const token = JSON.parse(localStorage.getItem("token"));
 
   let axiosOptions = {
     url: process.env.REACT_APP_API_URL + options.url,
@@ -11,7 +11,7 @@ export const requestHandler = options => {
       "x-access-token": token
     }
   };
-  switch (options.type) {
+  switch (options.type.toLowerCase()) {
     case "get":
       if (options.data) {
         axiosOptions.url += "?" + qs.stringify(options.data);
