@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const CustomInput = ({ title, value, type, setValue }) => {
   return (
@@ -22,11 +22,14 @@ CustomInput.propTypes = {
   type: PropTypes.string.isRequired,
   setValue: PropTypes.func.isRequired
 };
-const Div = styled.div`text-align:center`
+const Div = styled.div`
+  text-align:center
+  margin-top:15px;
+  `;
 const Input = styled.input`
   outline: none;
   padding: 5px;
   border-radius: 5px;
   border: 2px solid #d4daea;
-`
+`;
 export default CustomInput;

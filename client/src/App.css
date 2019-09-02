@@ -5,11 +5,21 @@ a:visited {
   background: #d4daea;
   color: #000;
   padding: 5px 15px;
-  border-radius: 35px;
+  border-radius: 4px;
 }
-td,tr{
-  text-align: center
+
+td,
+tr {
+  text-align: center;
 }
+
+td,
+tr,
+th {
+  border-color: #000 !important;
+
+}
+
 .btn {
 
   /* margin-top: 25px; */
@@ -20,15 +30,15 @@ td,tr{
 .template-children {
   width: 70vw;
   margin: 0 auto;
-  background: #7fa6f5;
-  border-radius: 20px;
+  background: #eee;
+  border-radius: 4px;
   padding: 25px;
   box-sizing: border-box;
 }
 
 .template-link-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .template-children {
@@ -36,12 +46,3 @@ td,tr{
   justify-content: center;
   margin-top: 20px;
 }
-
-.login-page {
-  text-align: center;
-}
-
-/* .custom-input {
-  
-  
-} */

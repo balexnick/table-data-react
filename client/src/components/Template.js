@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
 class Template extends Component {
   state = {};
   showhomePageOrLogin = () => {
@@ -23,10 +25,15 @@ class Template extends Component {
     return (
       <div>
         <div className="template-container">{this.showhomePageOrLogin()}</div>
-        <div className="template-children">{this.props.children}</div>
+        <Div>{this.props.children}</Div>
       </div>
     );
   }
 }
+
+const Div = styled.div`
+  width: 70vw;
+  margin: 60px auto 0;
+`;
 
 export default Template;

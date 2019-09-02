@@ -12,7 +12,6 @@ export const token = window.localStorage.getItem("token");
 
 export const browserHistory = createBrowserHistory();
 
-export const http = "http://localhost:8080";
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>

@@ -1,27 +1,32 @@
-import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
-import styled from 'styled-components'
+import React, { Component } from "react";
+import { Table } from "react-bootstrap";
+import styled from "styled-components";
 import { connect } from "react-redux";
-import { getUsers, deleteUser } from '../../actions/action';
+import { getUsers, deleteUser } from "../../actions/action";
 import PropTypes from "prop-types";
 import CustomButton from "../button/CustomButton";
-import EditUserModal from '../Modal/EditUserModal';
+import EditUserModal from "../Modal/EditUserModal";
+import Pagination from "../Pagination/Pagination";
 import * as CONSTANT from "../../constant";
-
 class MyTable extends Component {
   componentDidMount() {
-    this.props.getUsers()
+    this.props.getUsers();
   }
   editModal(elem) {
-    const { openEditWindow, editUserObj } = this.props
-    openEditWindow(true)
-    editUserObj(elem)
+    const { openEditWindow, editUserObj } = this.props;
+    openEditWindow(true);
+    editUserObj(elem);
   }
+  closeModal = () => {
+    const { openEditWindow, clearError } = this.props;
+    openEditWindow(false);
+    clearError();
+  };
   render() {
-    const { workers, deleteUser, openEditModal, openEditWindow } = this.props
+    const { workers, deleteUser, openEditModal } = this.props;
     return (
       <Div>
-        <Table striped bordered hover>
+        <Table bordered hover>
           <thead>
             <tr>
               <th>#</th>
@@ -45,16 +50,27 @@ class MyTable extends Component {
                   <td>{item.contactInformation}</td>
                   <td>{item.salary}</td>
                   <td>{item.position}</td>
-                  <TD>
-                    <CustomButton text="Edit" setClick={() => this.editModal(item)} />
-                    <CustomButton text="Remove" setClick={() => deleteUser(item._id)} />
-                  </TD>
+                  <td>
+                    <CustomButton
+                      text="Edit"
+                      setClick={() => this.editModal(item)}
+                      primary={true}
+                    />
+                    <CustomButton
+                      text="Remove"
+                      setClick={() => deleteUser(item._id)}
+                      error={true}
+                    />
+                  </td>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </Table>
-        {openEditModal && <EditUserModal open={openEditModal} close={() => openEditWindow(false)} />}
+        <Pagination />
+        {openEditModal && (
+          <EditUserModal open={openEditModal} close={this.closeModal} />
+        )}
       </Div>
     );
   }
@@ -63,25 +79,29 @@ const mapStateToProps = store => {
   return {
     workers: store.workers,
     openEditModal: store.openEditModal
-  }
-}
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
-    openEditWindow: open => dispatch({ type: CONSTANT.OPEN_EDIT_MODAL, payload: open }),
-    editUserObj: obj => dispatch({ type: CONSTANT.EDIT_USER_OBJECT, payload: obj }),
+    openEditWindow: open =>
+      dispatch({ type: CONSTANT.OPEN_EDIT_MODAL, payload: open }),
+    editUserObj: obj =>
+      dispatch({ type: CONSTANT.EDIT_USER_OBJECT, payload: obj }),
     getUsers: () => dispatch(getUsers()),
-    deleteUser: id => dispatch(deleteUser(id))
-  }
-}
+    deleteUser: id => dispatch(deleteUser(id)),
+    clearError: () => dispatch({ type: CONSTANT.ERROR_MESSAGE, payload: "" })
+  };
+};
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(MyTable);
 
-const Div = styled.div`margin-top:20px;`
-const TD = styled.td`display:flex`
+const Div = styled.div`
+  margin-top: 20px;
+`;
 MyTable.propTypes = {
   getUsers: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired
-}
+};

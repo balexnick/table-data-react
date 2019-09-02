@@ -13,8 +13,8 @@ import Template from "./components/Template";
 
 class App extends Component {
   componentDidMount() {
-    const token = localStorage.getItem("token");
-    this.props.saveToken(token)
+    const token = JSON.parse(localStorage.getItem("token"));
+    this.props.saveToken(token);
   }
   isToken = component => {
     const token = localStorage.getItem("token");
@@ -25,7 +25,6 @@ class App extends Component {
   notToken = component => {
     const token = localStorage.getItem("token");
     if (token) return <Redirect to="/" />;
-
     return <Template>{component}</Template>;
   };
 
@@ -42,7 +41,10 @@ class App extends Component {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    saveToken: token => dispatch({ type: CONSTANT.TOKEN, payload: token }),
-  }
-}
-export default connect(null, mapDispatchToProps)(App);
+    saveToken: token => dispatch({ type: CONSTANT.TOKEN, payload: token })
+  };
+};
+export default connect(
+  null,
+  mapDispatchToProps
+)(App);

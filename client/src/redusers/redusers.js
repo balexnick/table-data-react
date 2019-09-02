@@ -4,7 +4,11 @@ export const initialState = {
   workers: [],
   openModal: false,
   openEditModal: false,
-  editUserObj: {}
+  editUserObj: {},
+  errorMessage: "",
+  clearUserState: false,
+  page: 0,
+  pages: 0
 };
 
 export function rootReduser(state = initialState, action) {
@@ -33,6 +37,21 @@ export function rootReduser(state = initialState, action) {
       return {
         ...state,
         editUserObj: action.payload
+      };
+    case CONSTANT.ERROR_MESSAGE:
+      return {
+        ...state,
+        errorMessage: action.payload
+      };
+    case CONSTANT.TABLE_PAGE:
+      return {
+        ...state,
+        page: action.payload
+      };
+    case CONSTANT.ALL_TABLE_PAGES:
+      return {
+        ...state,
+        pages: action.payload
       };
     default:
       return state;
