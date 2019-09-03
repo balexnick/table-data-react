@@ -9,9 +9,9 @@ import EditUserModal from "../Modal/EditUserModal";
 import Pagination from "../Pagination/Pagination";
 import * as CONSTANT from "../../constant";
 class MyTable extends Component {
-  componentDidMount() {
-    this.props.getUsers();
-  }
+  // componentDidMount() {
+  //   this.props.getUsers();
+  // }
   editModal(elem) {
     const { openEditWindow, editUserObj } = this.props;
     openEditWindow(true);

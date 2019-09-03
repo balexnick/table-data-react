@@ -34,7 +34,7 @@ const Button = styled.button`
   outline: none;
   text-decoration: none;
   background: ${props =>
-    props.error ? "#dc3545  " : props.primary ? "#007afe" : " #17a2b8"};
+    props.error ? "#dc3545  " : props.primary ? "#007afe" : "#17a2b8"};
   color: #fff;
   padding: 5px 15px;
   border-radius: 4px;

@@ -61,7 +61,6 @@ export function getUsers(data) {
     };
     requestHandler(options)
       .then(response => {
-        console.log(response);
         dispatch({
           type: CONSTANT.WORKERS_ARR,
           payload: response.data.workers

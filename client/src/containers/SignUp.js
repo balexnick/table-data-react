@@ -12,13 +12,9 @@ class SignUp extends Component {
     email: "",
     password: ""
   };
-  signUp = () => {
-    console.log(this.state);
-    this.props.register(this.state);
-  };
   render() {
     const { name, email, password } = this.state;
-    const { error } = this.props;
+    const { error, register } = this.props;
     return (
       <Div>
         <LoginDiv>
@@ -43,7 +39,7 @@ class SignUp extends Component {
           {error && <ErrorComponent errorMessage={error} />}
           <CustomButton
             text="Sign up"
-            setClick={this.signUp}
+            setClick={() => register(this.state)}
             marginTop={true}
           />
         </LoginDiv>

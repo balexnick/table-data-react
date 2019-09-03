@@ -5,7 +5,7 @@ import CreateUserModal from "../components/Modal/CreateUserModal";
 import MyTable from "../components/Table/Table";
 import { connect } from "react-redux";
 import * as CONSTANT from "../constant";
-
+import SearchInput from "../components/Search/SearchInput";
 class HomePage extends Component {
   closeModal = () => {
     const { openWindow, clearError } = this.props;
@@ -18,7 +18,7 @@ class HomePage extends Component {
       <div className="template-children">
         <MainDiv>
           <Div>
-            <input type="text" />
+            <SearchInput />
             <CustomButton text="Add user" setClick={() => openWindow(true)} />
           </Div>
           <CreateUserModal close={this.closeModal} open={modal} />

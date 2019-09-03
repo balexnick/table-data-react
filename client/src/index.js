@@ -11,7 +11,6 @@ import { store } from "./store/configureStore";
 export const token = window.localStorage.getItem("token");
 
 export const browserHistory = createBrowserHistory();
-
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>

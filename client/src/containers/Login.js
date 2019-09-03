@@ -12,11 +12,8 @@ class Login extends Component {
     email: "",
     password: ""
   };
-  login = () => {
-    this.props.login(this.state);
-  };
   render() {
-    const { error } = this.props;
+    const { error, login } = this.props;
     const { email, password } = this.state;
     return (
       <Div>
@@ -34,7 +31,11 @@ class Login extends Component {
             setValue={val => this.setState({ password: val })}
           />
           {error && <ErrorComponent errorMessage={error} />}
-          <CustomButton text="Login" setClick={this.login} marginTop={true} />
+          <CustomButton
+            text="Login"
+            setClick={() => login(this.state)}
+            marginTop={true}
+          />
         </LoginDiv>
       </Div>
     );
