@@ -6,7 +6,8 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { editUser } from "../../actions/action";
-import ErrorComponent from "../Error/ErrorComponent";
+import { ToastContainer } from "react-toastify";
+
 class EditUserModal extends Component {
   constructor(props) {
     super();
@@ -30,11 +31,28 @@ class EditUserModal extends Component {
     };
   }
   editUser = () => {
-    const { editUser } = this.props;
-    editUser(this.state);
+    const {
+      firstName,
+      lastName,
+      gender,
+      contactInformation,
+      salary,
+      position,
+      id
+    } = this.state;
+    const data = {
+      firstName,
+      lastName,
+      gender,
+      contactInformation,
+      salary,
+      position,
+      id
+    };
+    this.props.editUser(data);
   };
   render() {
-    const { close, open, error } = this.props;
+    const { close, open } = this.props;
     const {
       firstName,
       lastName,
@@ -88,7 +106,7 @@ class EditUserModal extends Component {
                 type="text"
                 setValue={val => this.setState({ position: val })}
               />
-              {error && <ErrorComponent errorMessage={error} />}
+              <ToastContainer autoClose={2000} />
             </Div>
           </Modal.Body>
           <Modal.Footer>
@@ -113,8 +131,7 @@ const Div = styled.div`
 `;
 const mapStateToProps = store => {
   return {
-    editUserObj: store.editUserObj,
-    error: store.errorMessage
+    editUserObj: store.editUserObj
   };
 };
 const mapDispatchToProps = {

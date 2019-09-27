@@ -13,16 +13,17 @@ import Template from "./components/Template";
 
 class App extends Component {
   componentDidMount() {
+    console.log(this.props);
     const token = JSON.parse(localStorage.getItem("token"));
     this.props.saveToken(token);
   }
-  isToken = component => {
+  isAuth = component => {
     const token = localStorage.getItem("token");
     if (!token) return <Redirect to="/login" />;
     return <Template>{component}</Template>;
   };
 
-  notToken = component => {
+  notAuth = component => {
     const token = localStorage.getItem("token");
     if (token) return <Redirect to="/" />;
     return <Template>{component}</Template>;
@@ -31,11 +32,11 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <Route path="/login" render={() => this.notToken(<Login />)} />
-        <Route path="/signup" render={() => this.notToken(<SignUp />)} />
-        <Route path="/logout" render={() => this.isToken(<Logout />)} />
-        <Route path="/:page" render={() => this.isToken(<HomePage />)} />
-        <Route path="/" exact render={() => this.isToken(<HomePage />)} />
+        <Route path="/login" render={() => this.notAuth(<Login />)} />
+        <Route path="/signup" render={() => this.notAuth(<SignUp />)} />
+        <Route path="/logout" render={() => this.isAuth(<Logout />)} />
+        <Route path="/:page" render={() => this.isAuth(<HomePage />)} />
+        <Route path="/" exact render={() => this.isAuth(<HomePage />)} />
       </Switch>
     );
   }

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import CustomInput from "../components/input/CustomInput";
 import CustomButton from "../components/button/CustomButton";
-import ErrorComponent from "../components/Error/ErrorComponent";
 import { connect } from "react-redux";
 import { register } from "../actions/action";
 import styled from "styled-components";
+import { ToastContainer } from "react-toastify";
 
 class SignUp extends Component {
   state = {
@@ -14,7 +14,7 @@ class SignUp extends Component {
   };
   render() {
     const { name, email, password } = this.state;
-    const { error, register } = this.props;
+    const { register } = this.props;
     return (
       <Div>
         <LoginDiv>
@@ -36,7 +36,7 @@ class SignUp extends Component {
             type="password"
             setValue={val => this.setState({ password: val })}
           />
-          {error && <ErrorComponent errorMessage={error} />}
+          <ToastContainer autoClose={2000} />
           <CustomButton
             text="Sign up"
             setClick={() => register(this.state)}
@@ -47,11 +47,6 @@ class SignUp extends Component {
     );
   }
 }
-const mapStatoToProps = store => {
-  return {
-    error: store.errorMessage
-  };
-};
 const mapDispatchToProps = {
   register
 };
@@ -68,6 +63,6 @@ const LoginDiv = styled.div`
   text-align: center;
 `;
 export default connect(
-  mapStatoToProps,
+  null,
   mapDispatchToProps
 )(SignUp);

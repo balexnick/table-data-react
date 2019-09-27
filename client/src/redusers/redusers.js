@@ -2,10 +2,9 @@ import * as CONSTANT from "../constant";
 export const initialState = {
   token: "",
   workers: [],
-  openModal: false,
-  openEditModal: false,
+  isOpen: false,
+  isOpenEdit: false,
   editUserObj: {},
-  errorMessage: "",
   clearUserState: false,
   page: 0,
   pages: 0
@@ -26,22 +25,17 @@ export function rootReduser(state = initialState, action) {
     case CONSTANT.OPEN_MODAL:
       return {
         ...state,
-        openModal: action.payload
+        isOpen: action.payload
       };
     case CONSTANT.OPEN_EDIT_MODAL:
       return {
         ...state,
-        openEditModal: action.payload
+        isOpenEdit: action.payload
       };
     case CONSTANT.EDIT_USER_OBJECT:
       return {
         ...state,
         editUserObj: action.payload
-      };
-    case CONSTANT.ERROR_MESSAGE:
-      return {
-        ...state,
-        errorMessage: action.payload
       };
     case CONSTANT.TABLE_PAGE:
       return {

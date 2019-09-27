@@ -6,7 +6,8 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { createUser } from "../../actions/action";
-import ErrorComponent from "../Error/ErrorComponent";
+import { ToastContainer } from "react-toastify";
+
 class CreateUserModal extends Component {
   state = {
     firstName: "",
@@ -17,7 +18,6 @@ class CreateUserModal extends Component {
     position: ""
   };
   createNewUser = () => {
-    this.props.createUser(this.state);
     const {
       firstName,
       lastName,
@@ -26,6 +26,16 @@ class CreateUserModal extends Component {
       salary,
       position
     } = this.state;
+
+    const data = {
+      firstName,
+      lastName,
+      gender,
+      contactInformation,
+      salary,
+      position
+    };
+    this.props.createUser(data);
     if (
       firstName &&
       lastName &&
@@ -46,7 +56,7 @@ class CreateUserModal extends Component {
   };
 
   render() {
-    const { close, open, error } = this.props;
+    const { close, open } = this.props;
     const {
       firstName,
       lastName,
@@ -100,7 +110,7 @@ class CreateUserModal extends Component {
                 setValue={val => this.setState({ position: val })}
               />
             </Div>
-            {error && <ErrorComponent errorMessage={error} />}
+            <ToastContainer autoClose={2000} />
           </Modal.Body>
           <Modal.Footer>
             <CustomButton
@@ -125,17 +135,13 @@ const Div = styled.div`
   flex-direction: column
   align-items: center
 `;
-const mapStatoToProps = store => {
-  return {
-    error: store.errorMessage
-  };
-};
+
 const mapDispatchToProps = dispatch => {
   return {
     createUser: data => dispatch(createUser(data))
   };
 };
 export default connect(
-  mapStatoToProps,
+  null,
   mapDispatchToProps
 )(CreateUserModal);

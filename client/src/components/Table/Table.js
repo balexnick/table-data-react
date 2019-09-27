@@ -8,22 +8,15 @@ import CustomButton from "../button/CustomButton";
 import EditUserModal from "../Modal/EditUserModal";
 import Pagination from "../Pagination/Pagination";
 import * as CONSTANT from "../../constant";
+
 class MyTable extends Component {
-  // componentDidMount() {
-  //   this.props.getUsers();
-  // }
   editModal(elem) {
-    const { openEditWindow, editUserObj } = this.props;
-    openEditWindow(true);
+    const { openEditModal, editUserObj } = this.props;
+    openEditModal(true);
     editUserObj(elem);
   }
-  closeModal = () => {
-    const { openEditWindow, clearError } = this.props;
-    openEditWindow(false);
-    clearError();
-  };
   render() {
-    const { workers, deleteUser, openEditModal } = this.props;
+    const { workers, deleteUser, isOpenEdit, openEditModal } = this.props;
     return (
       <Div>
         <Table bordered hover>
@@ -68,8 +61,8 @@ class MyTable extends Component {
           </tbody>
         </Table>
         <Pagination />
-        {openEditModal && (
-          <EditUserModal open={openEditModal} close={this.closeModal} />
+        {isOpenEdit && (
+          <EditUserModal open={isOpenEdit} close={() => openEditModal(false)} />
         )}
       </Div>
     );
@@ -78,18 +71,17 @@ class MyTable extends Component {
 const mapStateToProps = store => {
   return {
     workers: store.workers,
-    openEditModal: store.openEditModal
+    isOpenEdit: store.isOpenEdit
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    openEditWindow: open =>
+    openEditModal: open =>
       dispatch({ type: CONSTANT.OPEN_EDIT_MODAL, payload: open }),
     editUserObj: obj =>
       dispatch({ type: CONSTANT.EDIT_USER_OBJECT, payload: obj }),
     getUsers: () => dispatch(getUsers()),
-    deleteUser: id => dispatch(deleteUser(id)),
-    clearError: () => dispatch({ type: CONSTANT.ERROR_MESSAGE, payload: "" })
+    deleteUser: id => dispatch(deleteUser(id))
   };
 };
 

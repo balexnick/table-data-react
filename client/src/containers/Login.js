@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import CustomInput from "../components/input/CustomInput";
 import CustomButton from "../components/button/CustomButton";
-import ErrorComponent from "../components/Error/ErrorComponent";
 import { login } from "../actions/action";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { ToastContainer } from "react-toastify";
 
 class Login extends Component {
   state = {
@@ -13,7 +13,7 @@ class Login extends Component {
     password: ""
   };
   render() {
-    const { error, login } = this.props;
+    const { login } = this.props;
     const { email, password } = this.state;
     return (
       <Div>
@@ -30,7 +30,7 @@ class Login extends Component {
             type="password"
             setValue={val => this.setState({ password: val })}
           />
-          {error && <ErrorComponent errorMessage={error} />}
+          <ToastContainer autoClose={2000} />
           <CustomButton
             text="Login"
             setClick={() => login(this.state)}
@@ -44,11 +44,7 @@ class Login extends Component {
 Login.propTypes = {
   login: PropTypes.func.isRequired
 };
-const mapStaToToProps = store => {
-  return {
-    error: store.errorMessage
-  };
-};
+
 const mapDispatchToProps = {
   login
 };
@@ -65,6 +61,6 @@ const LoginDiv = styled.div`
   text-align: center;
 `;
 export default connect(
-  mapStaToToProps,
+  null,
   mapDispatchToProps
 )(Login);

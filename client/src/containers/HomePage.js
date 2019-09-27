@@ -7,21 +7,16 @@ import { connect } from "react-redux";
 import * as CONSTANT from "../constant";
 import SearchInput from "../components/Search/SearchInput";
 class HomePage extends Component {
-  closeModal = () => {
-    const { openWindow, clearError } = this.props;
-    openWindow(false);
-    clearError();
-  };
   render() {
-    const { openWindow, modal } = this.props;
+    const { openModal, isOpen } = this.props;
     return (
       <div className="template-children">
         <MainDiv>
           <Div>
             <SearchInput />
-            <CustomButton text="Add user" setClick={() => openWindow(true)} />
+            <CustomButton text="Add user" setClick={() => openModal(true)} />
           </Div>
-          <CreateUserModal close={this.closeModal} open={modal} />
+          <CreateUserModal close={() => openModal(false)} open={isOpen} />
           <MyTable />
         </MainDiv>
       </div>
@@ -30,13 +25,12 @@ class HomePage extends Component {
 }
 const mapStateToProps = store => {
   return {
-    modal: store.openModal
+    isOpen: store.isOpen
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    openWindow: open => dispatch({ type: CONSTANT.OPEN_MODAL, payload: open }),
-    clearError: () => dispatch({ type: CONSTANT.ERROR_MESSAGE, payload: "" })
+    openModal: open => dispatch({ type: CONSTANT.OPEN_MODAL, payload: open })
   };
 };
 export default connect(

@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { store } from "./store/configureStore";
+import "react-toastify/dist/ReactToastify.css";
 
 export const token = window.localStorage.getItem("token");
 

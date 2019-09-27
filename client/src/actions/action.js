@@ -1,6 +1,9 @@
 import { browserHistory } from "../index";
 import * as CONSTANT from "../constant";
 import { requestHandler } from "../utils/requestHandler";
+
+import { toast } from "react-toastify";
+
 export function login(data) {
   return dispatch => {
     const options = {
@@ -13,14 +16,10 @@ export function login(data) {
         localStorage.setItem("token", JSON.stringify(response.data.token));
         dispatch({ type: CONSTANT.TOKEN, payload: response.data.token });
         browserHistory.push("/");
-        dispatch({ type: CONSTANT.ERROR_MESSAGE, payload: "" });
       })
       .catch(err => {
         if (err.response && err.response.data.message) {
-          dispatch({
-            type: CONSTANT.ERROR_MESSAGE,
-            payload: err.response.data.message
-          });
+          toast.error(err.response.data.message);
         }
       });
   };
@@ -39,14 +38,10 @@ export function register(data) {
         localStorage.setItem("token", JSON.stringify(response.data.token));
         dispatch({ type: CONSTANT.TOKEN, payload: response.data.token });
         browserHistory.push("/");
-        dispatch({ type: CONSTANT.ERROR_MESSAGE, payload: "" });
       })
       .catch(err => {
         if (err.response && err.response.data.message) {
-          dispatch({
-            type: CONSTANT.ERROR_MESSAGE,
-            payload: err.response.data.message
-          });
+          toast.error(err.response.data.message);
         }
       });
   };
@@ -87,14 +82,11 @@ export function createUser(data) {
       .then(() => {
         dispatch(getUsers());
         dispatch({ type: CONSTANT.OPEN_MODAL, payload: false });
-        dispatch({ type: CONSTANT.ERROR_MESSAGE, payload: "" });
       })
       .catch(err => {
+        console.log(err.response)
         if (err.response && err.response.data.message) {
-          dispatch({
-            type: CONSTANT.ERROR_MESSAGE,
-            payload: err.response.data.message
-          });
+          toast.error(err.response.data.message);
         }
       });
   };
@@ -110,14 +102,10 @@ export function editUser(data) {
       .then(() => {
         dispatch(getUsers({ page: getState().page }));
         dispatch({ type: CONSTANT.OPEN_EDIT_MODAL, payload: false });
-        dispatch({ type: CONSTANT.ERROR_MESSAGE, payload: "" });
       })
       .catch(err => {
         if (err.response && err.response.data.message) {
-          dispatch({
-            type: CONSTANT.ERROR_MESSAGE,
-            payload: err.response.data.message
-          });
+          toast.error(err.response.data.message);
         }
       });
   };
